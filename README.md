@@ -1,6 +1,6 @@
 # AgentForge AI Document Ops
 
-Operations application for processing synthetic hospital invoice PDFs. The React frontend handles document upload, review, analytics, and a cited Q&A interface. A separate FastAPI backend (added later) provides all API endpoints.
+Operations application for processing synthetic hospital invoice PDFs. The React frontend handles document upload, review, analytics, and a cited Q&A interface. The FastAPI backend is not implemented in this repository: its folders contain placeholders only. The frontend runs in demo mode using bundled synthetic data until that backend is added.
 
 ## Tech Stack
 
@@ -14,23 +14,36 @@ Operations application for processing synthetic hospital invoice PDFs. The React
 
 ## Getting Started
 
-```bash
-npm install
-npm run dev
+Use Node.js 22 or 24 (verified locally with Node.js 24). From the project folder:
+
+```powershell
+npm.cmd ci
+npm.cmd run dev
 ```
 
-The app runs at `http://localhost:5173`.
+The app runs at `http://localhost:5173`. Keep that terminal open; press Ctrl+C to stop it. In other shells, `npm` works in place of `npm.cmd`. Using `npm.cmd` in PowerShell avoids script execution-policy errors.
+
+No environment file or backend is required for demo mode. All data is synthetic, operations are simulated, and changes are not saved. Excel export requires the backend and is disabled in demo mode. If port 5173 is already occupied, stop the existing app instance or explicitly choose another port with `npm.cmd run dev -- --port 5174`.
+
+Verify the project with:
+
+```powershell
+npm.cmd run lint
+npm.cmd run build
+```
 
 ## Environment
 
-Copy `.env.example` to `.env` and adjust:
+To customize the configuration, copy `.env.example` to `.env` (PowerShell: `Copy-Item .env.example .env`) and adjust the values. Restart the development server after changing them:
 
 | Variable | Default | Description |
 |---|---|---|
 | `VITE_API_BASE_URL` | `http://localhost:8000` | FastAPI backend URL |
 | `VITE_USE_MOCKS` | `true` | Use mock data when backend is not ready |
 
-Set `VITE_USE_MOCKS=false` once the FastAPI backend is running.
+Set `VITE_USE_MOCKS=false` only once the FastAPI backend is implemented and running. An unset value defaults to demo mode. The backend must allow the frontend origin through CORS when using an absolute API URL.
+
+Never put credentials in `VITE_*` variables: these values are visible in the browser. Keep backend secrets in `backend/.env`. Environment files, dependencies, uploaded/source documents, generated exports, and vector databases are excluded from Git; `.env.example` contains only safe defaults.
 
 ## Routes
 
@@ -64,6 +77,7 @@ The frontend expects these FastAPI endpoints:
 - `GET /api/v1/documents?page=&page_size=&search=&status=&hospital=&exception_type=`
 - `GET /api/v1/documents/{documentId}`
 - `POST /api/v1/documents/{documentId}/reprocess`
+- `PATCH /api/v1/documents/{documentId}/review`
 - `POST /api/v1/ingestion/bulk` (JSON `{"recursive":true}`)
 - `GET /api/v1/ingestion/jobs/{jobId}`
 - `GET /api/v1/ingestion/stats`
@@ -104,7 +118,7 @@ backend/
 database/sql/.gitkeep
 ```
 
-## Manual Steps
+## Backend Work Still Required
 
 1. Implement the FastAPI backend with the endpoints listed above.
 2. Place ~18,000 synthetic PDFs in `backend/data/source_invoices/`.

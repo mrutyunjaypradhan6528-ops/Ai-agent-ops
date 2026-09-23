@@ -22,3 +22,34 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Local environment and credentials (keep safe templates)
+.env
+.env.*
+!.env.example
+!.env.sample
+!.env.template
+*.pem
+*.key
+*.p12
+*.pfx
+credentials.json
+service-account*.json
+
+# Python environments and caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Local document data, generated exports, and vector databases
+/backend/data/**
+!/backend/data/**/
+!/backend/data/**/.gitkeep
+/backend/exports/**
+!/backend/exports/**/
+!/backend/exports/**/.gitkeep
+/backend/vectorstore/**
+!/backend/vectorstore/**/
+!/backend/vectorstore/**/.gitkeep

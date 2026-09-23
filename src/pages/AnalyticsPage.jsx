@@ -7,6 +7,7 @@ import { FileText, CheckCircle, AlertTriangle, IndianRupee, Download, TrendingUp
 import { getAnalyticsSummary, getAnalyticsTrends, getExportUrl } from '../services/analyticsService'
 import LoadingSpinner from '../components/common/LoadingSpinner'
 import ErrorMessage from '../components/common/ErrorMessage'
+import { USE_MOCKS } from '../config/apiConfig'
 
 const pieColors = ['#3b82f6', '#22c55e', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899', '#14b8a6', '#f97316']
 
@@ -55,13 +56,23 @@ export default function AnalyticsPage() {
           <h1 className="text-2xl font-bold text-gray-900">Analytics</h1>
           <p className="mt-1 text-sm text-gray-500">Operational analytics and reporting</p>
         </div>
-        <a
-          href={getExportUrl()}
-          className="inline-flex items-center gap-2 rounded-md bg-success-600 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-success-700 focus:outline-none focus:ring-2 focus:ring-success-400"
-        >
-          <Download className="h-4 w-4" />
-          Export Excel
-        </a>
+        {USE_MOCKS ? (
+          <div className="text-right">
+            <button type="button" disabled className="inline-flex items-center gap-2 rounded-md bg-success-600 px-4 py-2.5 text-sm font-medium text-white opacity-50">
+              <Download className="h-4 w-4" />
+              Export Excel
+            </button>
+            <p className="mt-1 text-xs text-gray-500">Available when connected to the backend.</p>
+          </div>
+        ) : (
+          <a
+            href={getExportUrl()}
+            className="inline-flex items-center gap-2 rounded-md bg-success-600 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-success-700 focus:outline-none focus:ring-2 focus:ring-success-400"
+          >
+            <Download className="h-4 w-4" />
+            Export Excel
+          </a>
+        )}
       </div>
 
       <div className="flex flex-wrap gap-3">

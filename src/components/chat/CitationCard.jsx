@@ -19,7 +19,7 @@ export default function CitationCard({ citation }) {
         <span className="flex items-center gap-1"><Hash className="h-3 w-3" />{citation.chunk_id}</span>
       </div>
       <p className="mt-2 rounded bg-white px-2 py-1 text-xs italic text-gray-600 border border-gray-200">
-        "{citation.snippet}"
+        &quot;{citation.snippet}&quot;
       </p>
     </Link>
   )

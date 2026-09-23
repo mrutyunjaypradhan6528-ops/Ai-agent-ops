@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom'
+import { USE_MOCKS } from '../../config/apiConfig'
 import {
   LayoutDashboard,
   Upload,
@@ -59,7 +60,14 @@ export default function AppLayout({ children }) {
         </div>
       </aside>
       <main className="flex-1 overflow-y-auto">
-        <div className="mx-auto max-w-7xl px-6 py-8">{children}</div>
+        <div className="mx-auto max-w-7xl px-6 py-8">
+          {USE_MOCKS && (
+            <div role="status" className="mb-6 rounded-lg border border-warning-200 bg-warning-50 px-4 py-3 text-sm text-warning-800">
+              <strong>Demo mode.</strong> Sample data only. Uploads, reviews, ingestion, and chat responses are simulated; changes are not saved.
+            </div>
+          )}
+          {children}
+        </div>
       </main>
     </div>
   )

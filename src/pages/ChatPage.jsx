@@ -70,7 +70,7 @@ export default function ChatPage() {
             <div className="flex h-full items-center justify-center text-center">
               <div>
                 <p className="text-sm text-gray-400">Ask a question about your invoices.</p>
-                <p className="mt-1 text-xs text-gray-400">e.g., "What is the total for INV-100001?" or "Who is the patient for invoice 3?"</p>
+                <p className="mt-1 text-xs text-gray-400">e.g., &quot;What is the total for INV-100001?&quot; or &quot;Who is the patient for invoice 3?&quot;</p>
               </div>
             </div>
           )}
